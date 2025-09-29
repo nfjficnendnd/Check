@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProxyChecker Pro - Advanced Proxy Testing Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>ProxyChecker Pro</h1>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Total</span>
+                    <span class="stat-value" id="total-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Working</span>
+                    <span class="stat-value working" id="working-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Failed</span>
+                    <span class="stat-value failed" id="failed-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Checking</span>
+                    <span class="stat-value checking" id="checking-count">0</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-section">
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <h3>Upload Proxy List</h3>
+                        <p>Drag & drop your .txt file here or click to browse</p>
+                        <p class="format-info">Supports: IP:PORT, IP:PORT:USER:PASS, protocol://IP:PORT</p>
+                            <p class="type-info">💡 Select proxy type below or use "Auto Detect" for mixed lists</p>
+                        <input type="file" id="file-input" accept=".txt" hidden>
+                        <button class="browse-btn" onclick="document.getElementById('file-input').click()">
+                            <i class="fas fa-folder-open"></i> Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="proxy-type">Proxy Type:</label>
+                        <select id="proxy-type">
+                            <option value="HTTP" selected>HTTP</option>
+                            <option value="HTTPS">HTTPS</option>
+                            <option value="SOCKS4">SOCKS4</option>
+                            <option value="SOCKS5">SOCKS5</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="thread-count">Threads:</label>
+                        <select id="thread-count">
+                            <option value="10">10</option>
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="timeout">Timeout (s):</label>
+                        <select id="timeout">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                        </select>
+                    </div>
+                    <button class="check-btn" id="check-btn" disabled>
+                        <i class="fas fa-play"></i> Start Checking
+                    </button>
+                    <button class="stop-btn" id="stop-btn" disabled>
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                    <div class="export-group">
+                        <select id="export-format" class="export-format-select">
+                            <option value="enhanced">Enhanced Info (with IP details)</option>
+                            <option value="detailed">Detailed Info</option>
+                            <option value="simple">IP:PORT Only</option>
+                            <option value="original">Original Format</option>
+                            <option value="csv">CSV Format</option>
+                        </select>
+                        <button class="export-btn" id="export-btn" disabled>
+                            <i class="fas fa-download"></i> Export Working
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="results-header">
+                    <h3>Proxy Results</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">0%</span>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="results-table" id="results-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Proxy</th>
+                                <th>Type</th>
+                                <th>Country</th>
+                                <th>Response Time</th>
+                                <th>Last Checked</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-tbody">
+                            <tr class="no-data">
+                                <td colspan="6">
+                                    <i class="fas fa-info-circle"></i>
+                                    Upload a proxy list to get started
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Processing proxies...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
