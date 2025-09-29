@@ -15,7 +15,3 @@ services:
           property: port
     healthCheckPath: /
     autoDeploy: true
-    disk:
-      name: proxy-checker-disk
-      mountPath: /opt/render/project/src
-      sizeGB: 1
